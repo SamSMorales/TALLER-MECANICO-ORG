@@ -5,8 +5,7 @@
 package pe.com.taller.Modelo;
 
 /**
- *
- * @author silva
+CONEXION A LA BASE DE DATOS
  */
 public class Conexion {
     
