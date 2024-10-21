@@ -1,12 +1,16 @@
-
 package pe.com.taller.Vista;
 
+import javax.swing.JOptionPane;
+import pe.com.taller.Modelo.ConsultaUsuarios;
+import pe.com.taller.Modelo.Usuarios;
+
 public class Login extends javax.swing.JFrame {
+
+    Registro frmReg;
 
     public Login() {
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -15,13 +19,13 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        txtcontraseña = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cbxRol = new javax.swing.JComboBox<>();
         txtIngresar = new javax.swing.JButton();
         txtRegistrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -47,14 +51,6 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 240, -1));
 
-        txtcontraseña.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
-        txtcontraseña.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcontraseñaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 240, -1));
-
         jLabel3.setFont(new java.awt.Font("Arial Narrow", 1, 16)); // NOI18N
         jLabel3.setText("Contraseña:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, -1, 20));
@@ -63,11 +59,16 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("Rol:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, -1, 20));
 
-        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMINISTRADOR", "EMPLEADO" }));
         getContentPane().add(cbxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 240, -1));
 
         txtIngresar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         txtIngresar.setText("Ingresar");
+        txtIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIngresarActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, -1, -1));
 
         txtRegistrar.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
@@ -80,8 +81,9 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(txtRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, -1, -1));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/com/taller/img/iconUser.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 120, 110));
+        jLabel5.setIcon(new javax.swing.ImageIcon("D:\\Documentos\\archivos\\UTP\\VIII_CICLO_AGOSTO_2024\\CURSO_INTEGRADOR_I\\PROYECTO\\JAVA\\PROY-TALLER-MECANICO\\src\\main\\java\\pe\\com\\taller\\img\\iconUser.png")); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 120, 110));
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 240, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -90,14 +92,45 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void txtcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcontraseñaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcontraseñaActionPerformed
-
     private void txtRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegistrarActionPerformed
-        Registro frmReg = new Registro();
-        frmReg.setVisible(true);
+
+        if (frmReg == null) {
+
+            frmReg = new Registro();
+            frmReg.setVisible(true);
+
+        }
+
     }//GEN-LAST:event_txtRegistrarActionPerformed
+
+    private void txtIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIngresarActionPerformed
+
+        // Verificar que los campos no sean nulos
+        if (txtUsuario == null || txtPassword == null || cbxRol == null) {
+            JOptionPane.showMessageDialog(null, "Los campos de entrada son nulos.");
+            return;
+        }
+
+        String usuario = txtUsuario.getText();
+        String pass = new String(txtPassword.getPassword());
+
+         // Verificar que los campos no estén vacíos
+        if (!usuario.isEmpty() && !pass.isEmpty() && cbxRol.getSelectedItem() != null) {
+            Usuarios mod = new Usuarios(0, usuario, pass, cbxRol.getSelectedItem().toString());
+
+            ConsultaUsuarios modSql = new ConsultaUsuarios();
+            if (modSql.login(mod)) {
+                this.dispose();
+                AdmPersonalRegistrado apr = new AdmPersonalRegistrado();
+                apr.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos Incorrectos");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe ingresar sus datos");
+        }
+
+    }//GEN-LAST:event_txtIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,8 +175,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton txtIngresar;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JButton txtRegistrar;
     private javax.swing.JTextField txtUsuario;
-    private javax.swing.JTextField txtcontraseña;
     // End of variables declaration//GEN-END:variables
 }

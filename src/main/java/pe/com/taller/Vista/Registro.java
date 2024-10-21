@@ -44,7 +44,7 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial Narrow", 1, 24)); // NOI18N
         jLabel1.setText("Registro de Personal");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial Narrow", 1, 16)); // NOI18N
         jLabel2.setText("Usuario:");

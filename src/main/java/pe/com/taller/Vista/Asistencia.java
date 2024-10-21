@@ -30,6 +30,8 @@ public class Asistencia extends javax.swing.JFrame {
         txtDNIAsis = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtRegistrarAsis = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,11 +46,11 @@ public class Asistencia extends javax.swing.JFrame {
                 txtDNIAsisActionPerformed(evt);
             }
         });
-        getContentPane().add(txtDNIAsis, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 240, -1));
+        getContentPane().add(txtDNIAsis, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 240, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial Narrow", 1, 16)); // NOI18N
-        jLabel5.setText("DNI:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, 20));
+        jLabel5.setText("Evento:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, 20));
 
         txtRegistrarAsis.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         txtRegistrarAsis.setText("Registrar");
@@ -58,6 +60,13 @@ public class Asistencia extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtRegistrarAsis, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Arial Narrow", 1, 16)); // NOI18N
+        jLabel6.setText("DNI:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, 20));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "INGRESO", "SALIDA", "OTRO" }));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 240, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -107,8 +116,10 @@ public class Asistencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtDNIAsis;
     private javax.swing.JButton txtRegistrarAsis;
     // End of variables declaration//GEN-END:variables
