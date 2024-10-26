@@ -2,25 +2,26 @@ package pe.com.taller.Modelo;
 
 public class Usuarios {
 
-    private int idUsuarios;
+    private int id;
+    private String nombre;
     private String usuario;
     private String password;
-    private String rol;
+    private int id_tipo;
 
-    public Usuarios(int idUsuarios, String usuario, String password, String rol) {
-        this.idUsuarios = idUsuarios;
-        this.usuario = usuario;
-        this.password = password;
-        this.rol = rol;
+    public int getId() {
+        return id;
     }
 
-
-    public int getIdUsuarios() {
-        return idUsuarios;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setIdUsuarios(int idUsuarios) {
-        this.idUsuarios = idUsuarios;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getUsuario() {
@@ -39,12 +40,12 @@ public class Usuarios {
         this.password = password;
     }
 
-    public String getRol() {
-        return rol;
+    public int getId_tipo() {
+        return id_tipo;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setId_tipo(int id_tipo) {
+        this.id_tipo = id_tipo;
     }
 
 }

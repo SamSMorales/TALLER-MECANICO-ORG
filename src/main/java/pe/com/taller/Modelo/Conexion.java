@@ -1,50 +1,41 @@
 package pe.com.taller.Modelo;
 
-import java.awt.HeadlessException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * CONEXION A LA BASE DE DATOS
  */
 public class Conexion {
 
-    public static String url = "jdbc:mysql://localhost/bd_taller_mecanico";
-    public static String user = "root";
-    public static String password = "root";
+    private final String base = "bd_taller_mecanico";
+    private final String user = "root";
+    private final String password = "root";
+    private final String url = "jdbc:mysql://localhost:3306/" + base;
 
-    public static Connection conectar() {
+    private Connection con = null;
 
-        Connection conexion = null;
+    public Connection getconexion() {
 
         try {
-
+            
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection(url, user, password);
-            
-            System.out.println("Conexion establecida mensaje en consola para comprobar");
-
-        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
-
-            System.out.println("Error de conexión: " + e);
-
-        }
-
-        return conexion;
-
-    }
-    
-        public static void desconectar(){
-            
-            Connection conexion = null;
-            if (conexion == null) {
-                
-                System.out.println("La variable de conexion ha sido puesta en null");
-                
-            }
-            
+            con = DriverManager.getConnection(url, user, password);
+        
+        } catch (ClassNotFoundException ex) {
+        
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        return con;
+
+    }
 
 }
