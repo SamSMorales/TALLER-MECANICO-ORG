@@ -4,32 +4,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SqlUsuarios extends Conexion {
 
-    public boolean registrar(Usuarios usr) {
+    Connection con = getconexion();
 
-        PreparedStatement ps = null;
-        Connection con = getconexion();
-
-        String sql = "INSERT INTO usuarios (nombre, usuario, password, idtipo_usuario) "
-                + "VALUES (?, ?, ?, ?)";
+    public void insertarUsuarios(Usuarios usua) throws Exception {
 
         try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, usr.getNombre());
-            ps.setString(2, usr.getUsuario());
-            ps.setString(3, usr.getPassword());
-            ps.setInt(4, usr.getId_tipo());
-            ps.execute();
-            return true;
 
-        } catch (SQLException ex) {
+            this.getconexion();
 
-            Logger.getLogger(SqlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            String sql = "INSERT INTO usuarios (usuario, password, idtipo_usuario) "
+                    + "VALUES (?, ?, (SELECT idtipo_usuario FROM tipo_usuario WHERE tipo=?))";
+
+            // Crear un objeto PreparedStatement para ejecutar la consulta SQL
+            PreparedStatement pre = this.con.prepareStatement(sql);
+
+            //Establecemos los parametros de la consulta SQL
+            pre.setString(1, usua.getUsuario());
+            pre.setString(2, usua.getPassword());
+            pre.setString(3, usua.getTipo());
+
+            pre.executeUpdate();
+
+        } catch (SQLException e) {
+
+            throw e;
 
         }
 
@@ -41,22 +42,23 @@ public class SqlUsuarios extends Conexion {
         ResultSet rs = null;
         Connection con = getconexion();
 
-        String sql = "SELECT idusuarios, nombre, usuario, password, idtipo_usuario FROM usuarios WHERE  usuario = ?";
+        String sql = "SELECT idusuarios, usuario, password, idtipo_usuario FROM usuarios WHERE usuario = ?";
 
         try {
+
             ps = con.prepareStatement(sql);
             ps.setString(1, usr.getUsuario());
             rs = ps.executeQuery();
 
             if (rs.next()) {
 
-                if (usr.getPassword().equals(rs.getString(4))) {
+                if (usr.getPassword().equals(rs.getString(3))) {
 
                     usr.setId(rs.getInt(1));
-                    usr.setNombre(rs.getNString(2));
-                    usr.setId_tipo(rs.getInt(5));
+                    usr.setId_tipo(rs.getInt(4));
 
                     return true;
+
                 } else {
 
                     return false;
@@ -68,7 +70,7 @@ public class SqlUsuarios extends Conexion {
 
         } catch (SQLException ex) {
 
-            Logger.getLogger(SqlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error:" + ex);
             return false;
 
         }
@@ -85,11 +87,16 @@ public class SqlUsuarios extends Conexion {
 
         try {
             ps = con.prepareStatement(sql);
+
+            // Establece el valor del parámetro en la consulta
             ps.setString(1, usuario);
+
+            // Ejecuta la consulta
             rs = ps.executeQuery();
 
             if (rs.next()) {
 
+                // Devuelve el conteo de usuarios encontrados
                 return rs.getInt(1);
 
             }
@@ -98,7 +105,7 @@ public class SqlUsuarios extends Conexion {
 
         } catch (SQLException ex) {
 
-            Logger.getLogger(SqlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error : " + ex);
             return 1;
 
         }

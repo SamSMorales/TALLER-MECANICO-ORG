@@ -2,24 +2,28 @@ package pe.com.taller.Modelo;
 
 import java.util.Date;
 
-public class Empleado {
+public class Personal {
 
     private int id_empleado;
     private String nombre;
     private String apellido;
-    private int dni;
+    private String dni;
     private String puesto;
     private double salarioBase;
     private Date fechaContratacion;
+    private int estado;
 
-    public Empleado(int id_empleado, String nombre, String apellido, int dni, String puesto, double salarioBase, Date fechaContratacion) {
-        this.id_empleado = id_empleado;
+    public Personal(String nombre, String apellido, String dni, String puesto, double salarioBase, Date fechaContratacion, int estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.puesto = puesto;
         this.salarioBase = salarioBase;
         this.fechaContratacion = fechaContratacion;
+        this.estado = estado;
+    }
+
+    public Personal() {
     }
 
     public int getId_empleado() {
@@ -46,11 +50,11 @@ public class Empleado {
         this.apellido = apellido;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -78,6 +82,14 @@ public class Empleado {
         this.fechaContratacion = fechaContratacion;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
     public void RegistrarEntrada() {
 
     }
@@ -93,5 +105,5 @@ public class Empleado {
     public String GenerarPerfil() {
         return "";
     }
-    
+
 }

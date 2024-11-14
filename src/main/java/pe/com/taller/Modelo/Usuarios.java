@@ -3,10 +3,10 @@ package pe.com.taller.Modelo;
 public class Usuarios {
 
     private int id;
-    private String nombre;
     private String usuario;
     private String password;
     private int id_tipo;
+    private String tipo;
 
     public int getId() {
         return id;
@@ -14,14 +14,6 @@ public class Usuarios {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getUsuario() {
@@ -47,5 +39,17 @@ public class Usuarios {
     public void setId_tipo(int id_tipo) {
         this.id_tipo = id_tipo;
     }
+
+    
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+   
 
 }

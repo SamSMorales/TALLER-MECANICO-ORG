@@ -1,11 +1,8 @@
 package pe.com.taller.Modelo;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * CONEXION A LA BASE DE DATOS
@@ -22,18 +19,24 @@ public class Conexion {
     public Connection getconexion() {
 
         try {
-            
+
+            // Carga el driver JDBC para MySQL, para comunicarse con la base de datos.
             Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establece la conexión utilizando la URL, el usuario y la contraseña proporcionados.
             con = DriverManager.getConnection(url, user, password);
-        
+
         } catch (ClassNotFoundException ex) {
-        
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        
+
+            System.out.println("Error: Driver JDBC no encontrado");
+            ex.printStackTrace(); // Imprime el stack trace para más detalles
+
         } catch (SQLException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println("Error: No se pudo establecer la conexión a la base de datos.");
+            ex.printStackTrace();
         }
-        
+
         return con;
 
     }
