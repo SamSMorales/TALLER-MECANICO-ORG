@@ -114,26 +114,37 @@ public class SQLPersonal extends Conexion {
         modelo.addColumn("Sueldo Base");
 
         String sql = "SELECT * FROM empleado WHERE nombre LIKE ? OR puesto LIKE ?";
+        
         try ( PreparedStatement pst = cn.prepareStatement(sql)) {
+            
             pst.setString(1, "%" + input + "%");
             pst.setString(2, "%" + input + "%");
+            
             ResultSet rs = pst.executeQuery();
 
             modelo.setRowCount(0); // Limpia el modelo antes de agregar nuevos resultados
+            
             while (rs.next()) {
                 Object[] lista = {
+                    
                     rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
                     rs.getString(4),
                     rs.getString(5),
                     rs.getDouble(6)
+                        
                 };
+                
                 modelo.addRow(lista);
+                
             }
             tabla.setModel(modelo);
+            
         } catch (SQLException e) {
+            
             System.err.println("Error al buscar datos: " + e);
+            
         }
     }
 
