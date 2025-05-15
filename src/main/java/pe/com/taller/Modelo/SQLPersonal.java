@@ -113,7 +113,9 @@ public class SQLPersonal extends Conexion {
         modelo.addColumn("Puesto");
         modelo.addColumn("Sueldo Base");
 
-        String sql = "SELECT * FROM empleado WHERE nombre LIKE ? OR puesto LIKE ?";
+        //String sql = "SELECT * FROM empleado WHERE nombre LIKE ? OR puesto LIKE ?";
+        
+        String sql = "SELECT * FROM empleado WHERE (nombre LIKE ? OR puesto LIKE ?) AND activo = TRUE";
         
         try ( PreparedStatement pst = cn.prepareStatement(sql)) {
             
